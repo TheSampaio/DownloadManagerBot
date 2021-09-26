@@ -22,13 +22,13 @@ def is_pdf_file(event):
 
 
 def is_mp3_file(event):
-    if extension_type(event) == 'mp3':
+    if extension_type(event) in ('mp3', "wav", "m4a", "flac", "aiff", "ogg"):
         return True
     return False
 
 
 def is_image_file(event):
-    if extension_type(event) in ('png', 'jpg', 'jpeg', 'bmp', 'gif', 'raw'):
+    if extension_type(event) in ('png', 'jpg', 'jpeg', 'bmp', 'gif', 'raw', 'ico'):
         return True
     return False
 
@@ -75,7 +75,7 @@ def is_chit_file(event):
 
 
 def is_executable_file(event):
-    if extension_type(event) in ('exe', 'msi'):
+    if extension_type(event) in ('exe', 'msi', 'run', 'deb'):
         return True
     return False
 
