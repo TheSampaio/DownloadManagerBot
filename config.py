@@ -2,6 +2,8 @@ import shutil
 import os
 from time import sleep
 
+user = os.environ['USERPROFILE']
+activeTime = 8
 
 def extension_type(event):
     return event.src_path[event.src_path.rindex('.') + 1:]
@@ -62,7 +64,12 @@ def is_compacted_file(event):
 
 
 def is_code_file(event):
-    if extension_type(event) in ('py', 'cs', 'js', 'php', 'html', 'sql', 'css', 'c', 'h', 'cpp', 'java'):
+    if extension_type(event) in ('py', "jl", 'cs', 'js', 'php', 'html', 'sql', 'css', 'c', 'h', 'cpp', 'java', 'asp', 'aspx', 'axd', 'asx', 'asmx', 'ashx', 'cfm', 'yaws', 'swf', 'htm', 'xhtml', 'jhtml', "jsp", "jspx", "wss", "do", "cmd", "action", "pl", "phtml", "php3", "php4", "rb", "rhtml", "shtml", "rss", "svg", ):
+        return True
+    return False
+
+def is_chit_file(event):
+    if extension_type(event) in ('xml'):
         return True
     return False
 
@@ -74,7 +81,7 @@ def is_executable_file(event):
 
 
 def make_folder(foldername):
-    os.chdir('C:\\Users\\User\\Downloads')
+    os.chdir('{}\\Downloads'.format(user))
     
     if os.path.exists(foldername) == True:
         print('\nA pasta destino já existe, pulando criação')
@@ -86,11 +93,11 @@ def make_folder(foldername):
 
 def move_to_new_corresponding_folder(event, path_to_new_folder):
     try:
-        print('\nMovendo arquivo em 10 segundos...')
-        sleep(5)
+        print('\nMovendo arquivo em {} segundos...'.format(activeTime))
+        sleep(activeTime / 2)
 
-        print('Movendo o arquivo em 5 segundos...')
-        sleep(5)
+        print('Movendo o arquivo em {} segundos...'.format(activeTime / 2))
+        sleep(activeTime / 2)
 
         shutil.move(event.src_path, path_to_new_folder)
         print('\nArquivo movido com sucesso')

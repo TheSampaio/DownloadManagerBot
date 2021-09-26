@@ -4,7 +4,7 @@ import logging
 from watchdog.observers import Observer
 from watchdog.events import LoggingEventHandler
 from watchdog.events import FileSystemEventHandler
-from config import *
+from Config import *
 
 
 class Handler(FileSystemEventHandler):
@@ -17,27 +17,7 @@ class Handler(FileSystemEventHandler):
         if os.path.isdir(event.src_path):
             return
 
-        if is_code_file(event) == True:
-            path_to_folder = make_folder('08 - Códigos')
-            move_to_new_corresponding_folder(event, path_to_folder)
-            return
-
-        elif is_text_file(event) == True:
-            path_to_folder = make_folder('07 - Textos')
-            move_to_new_corresponding_folder(event, path_to_folder)
-            return
-
-        elif is_pdf_file(event) == True:
-            path_to_folder = make_folder('03 - Documentos')
-            move_to_new_corresponding_folder(event, path_to_folder)
-            return
-
-        elif is_mp3_file(event) == True:
-            path_to_folder = make_folder('02 - Áudios')
-            move_to_new_corresponding_folder(event, path_to_folder)
-            return
-
-        elif is_image_file(event) == True:
+        if is_image_file(event) == True:
             path_to_folder = make_folder('00 - Imagens')
             move_to_new_corresponding_folder(event, path_to_folder)
             return
@@ -47,13 +27,23 @@ class Handler(FileSystemEventHandler):
             move_to_new_corresponding_folder(event, path_to_folder)
             return
 
+        elif is_mp3_file(event) == True:
+            path_to_folder = make_folder('02 - Áudios')
+            move_to_new_corresponding_folder(event, path_to_folder)
+            return
+
+        elif is_pdf_file(event) == True:
+            path_to_folder = make_folder('03 - Documentos')
+            move_to_new_corresponding_folder(event, path_to_folder)
+            return 
+
         elif is_doc_file(event) == True:
             path_to_folder = make_folder('04 - Words')
             move_to_new_corresponding_folder(event, path_to_folder)
             return
 
         elif is_spreadsheet_file(event) == True:
-            path_to_folder = make_folder('05 - Excels')
+            path_to_folder = make_folder('05 - Tabelas')
             move_to_new_corresponding_folder(event, path_to_folder)
             return
 
@@ -62,18 +52,33 @@ class Handler(FileSystemEventHandler):
             move_to_new_corresponding_folder(event, path_to_folder)
             return
 
+        elif is_text_file(event) == True:
+            path_to_folder = make_folder('07 - Textos')
+            move_to_new_corresponding_folder(event, path_to_folder)
+            return
+
+        elif is_code_file(event) == True:
+            path_to_folder = make_folder('08 - Códigos')
+            move_to_new_corresponding_folder(event, path_to_folder)
+            return
+
         elif is_executable_file(event) == True:
-            path_to_folder = make_folder('Executável')
+            path_to_folder = make_folder('09 - Executáveis')
             move_to_new_corresponding_folder(event, path_to_folder)
             return
 
         elif is_compacted_file(event) == True:
-            path_to_folder = make_folder('09 - Compactados')
+            path_to_folder = make_folder('10 - Compactados')
+            move_to_new_corresponding_folder(event, path_to_folder)
+            return
+
+        elif is_chit_file(event) == True:
+            path_to_folder = make_folder('10 - Compactados')
             move_to_new_corresponding_folder(event, path_to_folder)
             return
 
         else:
-            path_to_folder = make_folder("10 - Outros")
+            path_to_folder = make_folder("12 - Outros")
             move_to_new_corresponding_folder(event, path_to_folder)
             return
 
@@ -88,7 +93,7 @@ class Handler(FileSystemEventHandler):
 
 file_change_handler = Handler()
 observer = Observer()
-os.chdir('C:\\Users\\User\\Downloads')
+os.chdir('{}\\Downloads'.format(user))
 print(os.getcwd())
 observer.schedule(file_change_handler, os.getcwd(), recursive=False,)
 observer.start()
