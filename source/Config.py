@@ -1,9 +1,13 @@
-import shutil
 import os
+import shutil
+import locale
 from time import sleep
 
 user = os.environ['USERPROFILE']
-activeTime = 8
+language = locale.getdefaultlocale()[0][0:2]
+activeTime = 8.0
+
+print(language)
 
 def extension_type(event):
     return event.src_path[event.src_path.rindex('.') + 1:]
@@ -68,7 +72,7 @@ def is_code_file(event):
         return True
     return False
 
-def is_chit_file(event):
+def is_invoice_file(event):
     if extension_type(event) in ('xml'):
         return True
     return False
@@ -84,7 +88,11 @@ def make_folder(foldername):
     os.chdir('{}\\Downloads'.format(user))
     
     if os.path.exists(foldername) == True:
-        print('\nA pasta destino já existe, pulando criação')
+        if language == 'en':
+            print('\nDestine folder already exists, skipping creation')
+        elif language == 'pt':
+            print('\nA pasta destino já existe, pulando criação')
+
         return os.getcwd() + os.sep + str(foldername)
     else:
         os.mkdir(str(foldername))
@@ -93,15 +101,31 @@ def make_folder(foldername):
 
 def move_to_new_corresponding_folder(event, path_to_new_folder):
     try:
-        print('\nMovendo arquivo em {} segundos...'.format(activeTime))
-        sleep(activeTime / 2)
+        if language == 'en':
+            print('\nMoving file in {} seconds...'.format(activeTime))
+            sleep(activeTime / 2)
 
-        print('Movendo o arquivo em {} segundos...'.format(activeTime / 2))
-        sleep(activeTime / 2)
+            print('\nMoving file in {} seconds...'.format(activeTime / 2))
+            sleep(activeTime / 2)
 
-        shutil.move(event.src_path, path_to_new_folder)
-        print('\nArquivo movido com sucesso')
+            shutil.move(event.src_path, path_to_new_folder)
+            print('\nFile moved successfully')
+
+        elif language == 'pt':
+            print('\nMovendo arquivo em {} segundos...'.format(activeTime))
+            sleep(activeTime / 2)
+
+            print('Movendo o arquivo em {} segundos...'.format(activeTime / 2))
+            sleep(activeTime / 2)
+
+            shutil.move(event.src_path, path_to_new_folder)
+            print('\nArquivo movido com sucesso')
 
     except:
-        print('\nO arquivo já existe na pasta de destino')
+        if language == 'en':
+            print('\nFile already exists in destination folder')
+
+        elif language == 'pt':
+            print('\nO arquivo já existe na pasta de destino')
+
         pass
