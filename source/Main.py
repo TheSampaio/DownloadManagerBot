@@ -41,9 +41,9 @@ class Handler(FileSystemEventHandler):
 
         elif is_pdf_file(event) == True:
             if language == 'en':
-                path_to_folder = make_folder('03 - Documents')
+                path_to_folder = make_folder('03 - PDFs')
             elif language == 'pt':
-                path_to_folder = make_folder("03 - Documentos")
+                path_to_folder = make_folder("03 - PDFs")
             move_to_new_corresponding_folder(event, path_to_folder)
             return 
 
@@ -105,9 +105,9 @@ class Handler(FileSystemEventHandler):
 
         elif is_invoice_file(event) == True:
             if language == 'en':
-                path_to_folder = make_folder('10 - Invoices')
+                path_to_folder = make_folder('11 - Invoices')
             elif language == 'pt':
-                path_to_folder = make_folder('10 - Notas Fiscais')
+                path_to_folder = make_folder('11 - Notas Fiscais')
             move_to_new_corresponding_folder(event, path_to_folder)
             return
 
