@@ -1,3 +1,5 @@
+# Version 1.4
+
 import logging
 from watchdog.observers import Observer
 from watchdog.events import LoggingEventHandler
